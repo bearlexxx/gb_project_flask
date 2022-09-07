@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-box row no-gutters bg-default light mt-100" style="background-color: #f4f5f6;">
+                    <div class="col-sm-auto padding-x3">
+                        <h4 class="mb-0"><a class="title" href="{{ url_for('users.user_posts', username=post.author.username) }}" id="author" style="margin: 0 auto;"><strong>{{ post.author.username }}</strong></a></h4>
+                    </div>
+                    <div class="col-sm padding-x3">
+                      <h4 class="mb-0"><a href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h4>
+                      <p class="">{{ post.content }}</p>
+                      <p class="text-secondary mb-10">Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</p>
+                    </div>
+                    <div class="col-sm-auto">
+                        <a href="{{ url_for('users.user_posts', username=post.author.username) }}" id="author"><img src="{{ url_for('static', filename='images/profile_pics/' + post.author.image_file) }}" width="220px" align="middle" alt="Аватарка автора" class=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      {% if post.author == current_user %}
+        <div class="card-footer" style="font-size: 20px;"> {% if post.author == current_user %}
+         <a class="btn btn-sm btn-outline-light" href="{{url_for('posts.update_post', post_id=post.id) }}">Обновить</a>
+         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Удалить</button>
+        </div>
+      {% endif %}
+    </div>
+
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+<!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog spr-edit-el spr-oc-show spr-wout" role="document">
+      <div class="modal-content padding-x3 dark">
+        <div class="modal-header">
+          <h3 class="mb-50 text-left" style=""><strong class="">Удалить пост?</strong></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            <input class="btn btn-danger" type="submit" value="Удалить">
+          </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,9 @@
+
+#nav-logo-menu-btn .bg-wrap {
+	background: linear-gradient(to right, #000000, #a2aab1);}#header-text .bg {
+    background-image: url('../images/bg-46.jpg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    opacity:0.25;
+}
